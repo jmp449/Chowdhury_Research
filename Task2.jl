@@ -46,8 +46,8 @@ end
 
 #returns sample of final states of r=0 cell at t=2000 for samp=200 and a given p_xi
 #expected_endstate was run for each p in the range [0:0.01:1]
-#the output showed activity in the range [0.6,0.8]
-#expected_endstate was then run for each p in the range [0.6:0.01:0.8]
+#the output showed activity in the range [0.6,1.0]
+#expected_endstate was then run for each p in the range [0.6:0.01:1.0]
 function expected_endstate(samp, p)
     v = 0
     for i = 1:samp
