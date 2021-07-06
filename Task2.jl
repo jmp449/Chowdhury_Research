@@ -55,39 +55,3 @@ function expected_endstate(samp, p)
     end
     return v / samp
 end
-
-#normalized hamming function
-function ham(max_time, stop_time, p, init_dif)
-    e = zeros(2 * max_time + 1)
-    while e'e < init_dif
-        e[rand(1:1:length(e))] = 1
-    end
-
-    v = rand(Bernoulli(0.5), 2 * max_time + 1)
-    vc = copy(v)
-    for i = 1:length(e)
-        vv[i] = (vv[i] - e[i])^2
-    end
-
-    A0 = CA(v, max_time, stop_time, p, 0.9)
-    A1 = CA(vv, max_time, stop_time, p, 0.9)
-    m, n = size(A0)
-
-    D = A0 - A1
-    H = zeros(stop_time)
-    for i = 1:stop_time
-        H[i] = n - count(x -> (x == 0), D[i, :])
-    end
-
-    return H / (n - 2)
-end
-                    
-#Average hamming function                   
-function smooth_ham(max_time, stop_time, p, init_dif, samp)
-    H = ham(max_time, stop_time, p, init_dif)
-    for j = 1:samp-1
-        H += ham(max_time, stop_time, p, init_dif)
-    end
-    return H / samp
-end
-
