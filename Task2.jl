@@ -14,7 +14,7 @@ end
 
 #produces matrix containing evolution of cellular autamaton
 #Note: C(r,t) = A[t + 1,r + (max_time + 2)], init_state = C(r,t=0)
-function CA(init_state, max_time, stop_time, p_gamma, p_xi)
+function CA(max_time, p_gamma, p_xi)
     t = max_time + 1
     
     A = zeros(t, 2 * t + 1)
