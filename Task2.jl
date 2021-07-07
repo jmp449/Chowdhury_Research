@@ -16,15 +16,11 @@ end
 #Note: C(r,t) = A[t + 1,r + (max_time + 2)], init_state = C(r,t=0)
 function CA(init_state, max_time, stop_time, p_gamma, p_xi)
     t = max_time + 1
-    A = zeros(t, 2 * t + 1)
-
-    if init_state == 0
-        A[1, t+1] = 1
-    else
-        A[1, 2:2*max_time+2] = init_state
-    end
     
-    for time = 1:stop_time
+    A = zeros(t, 2 * t + 1)
+    A[1, t+1] = 1
+    
+    for time = 1:max_time
         for pos = -time:time
             #C(r,t)
             c00 = A[time, pos+1+t]
@@ -51,7 +47,7 @@ end
 function expected_endstate(samp, p)
     v = 0
     for i = 1:samp
-        v += CA(0, 2000, 2000, 0.9, p)[2001, 2002]
+        v += CA(2000, 0.9, p)[2001, 2002]
     end
     return v / samp
 end
